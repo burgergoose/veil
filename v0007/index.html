@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="home">
+    <button id="settings-btn" class="corner" aria-label="Settings" title="Settings">⚙</button>
+    <div class="mark" aria-hidden="true"></div>
+    <h1>Home</h1>
+    <form id="go" autocomplete="off">
+      <input id="address" type="text" placeholder="Search or type a web address" autofocus
+             spellcheck="false" autocapitalize="off" aria-label="Search or web address">
+      <button type="submit">Go</button>
+    </form>
+    <p id="status" role="status"></p>
+    <form id="unlock" autocomplete="off" hidden>
+      <input id="unlock-code" type="password" placeholder="Code" aria-label="Code">
+      <button type="submit">Go</button>
+    </form>
+
+    <div id="shortcuts" class="shortcuts" aria-label="Shortcuts"></div>
+  </main>
+
+  <div id="browser" hidden>
+    <nav>
+      <button id="home-btn" title="Home" aria-label="Home">⌂</button>
+      <button id="back-btn" title="Back" aria-label="Back">←</button>
+      <button id="fwd-btn" title="Forward" aria-label="Forward">→</button>
+      <button id="reload-btn" title="Reload" aria-label="Reload">↻</button>
+      <form id="bar" autocomplete="off">
+        <input id="bar-address" type="text" spellcheck="false" autocapitalize="off" aria-label="Web address">
+      </form>
+      <button id="full-btn" title="Full screen" aria-label="Full screen">⛶</button>
+    </nav>
+    <iframe id="frame" title="Page" allowfullscreen></iframe>
+  </div>
+
+  <dialog id="settings" aria-labelledby="settings-title">
+    <form method="dialog">
+      <h2 id="settings-title">Settings</h2>
+
+      <label for="set-search">Search engine</label>
+      <select id="set-search">
+        <option value="ddg">DuckDuckGo</option>
+        <option value="brave">Brave Search</option>
+        <option value="startpage">Startpage</option>
+        <option value="google">Google</option>
+        <option value="bing">Bing</option>
+      </select>
+
+      <span class="label" id="theme-label">Colour</span>
+      <div id="set-theme" class="swatches" role="radiogroup" aria-labelledby="theme-label"></div>
+
+      <label class="check">
+        <input id="set-ads" type="checkbox">
+        <span>Block ads</span>
+      </label>
+
+      <button type="submit" class="primary">Done</button>
+    </form>
+  </dialog>
+
+  <script src="https://raw.githack.com/burgergoose/engine/main/a/uv.bundle.js"></script>
+  <script src="a/uv.config.js"></script>
+  <script src="https://raw.githack.com/burgergoose/engine/main/c/index.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
