@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Veil</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="home">
+    <button id="settings-btn" class="corner" aria-label="Settings" title="Settings">⚙</button>
+    <div class="mark" aria-hidden="true"></div>
+    <h1>Veil</h1>
+    <p class="tag">Private browsing through your own server.</p>
+    <form id="go" autocomplete="off">
+      <input id="address" type="text" placeholder="Search or type a web address" autofocus
+             spellcheck="false" autocapitalize="off" aria-label="Search or web address">
+      <button type="submit">Go</button>
+    </form>
+    <p id="status" role="status">Starting…</p>
+    <form id="unlock" autocomplete="off" hidden>
+      <input id="unlock-code" type="password" placeholder="Access code" aria-label="Access code">
+      <button type="submit">Unlock</button>
+    </form>
+
+    <div id="shortcuts" class="shortcuts" aria-label="Shortcuts"></div>
+
+    <ul class="facts">
+      <li><b>Scrambled addresses</b> Sites you visit never appear in plain text in the address bar.</li>
+      <li><b>Encrypted tunnel</b> HTTPS sites are encrypted inside your browser, all the way to the site.</li>
+      <li><b>No logs, no trackers</b> The server keeps no record, and ad and tracker servers are blocked.</li>
+    </ul>
+  </main>
+
+  <div id="browser" hidden>
+    <nav>
+      <button id="home-btn" title="Home" aria-label="Home">⌂</button>
+      <button id="back-btn" title="Back" aria-label="Back">←</button>
+      <button id="fwd-btn" title="Forward" aria-label="Forward">→</button>
+      <button id="reload-btn" title="Reload" aria-label="Reload">↻</button>
+      <form id="bar" autocomplete="off">
+        <input id="bar-address" type="text" spellcheck="false" autocapitalize="off" aria-label="Web address">
+      </form>
+      <button id="full-btn" title="Full screen" aria-label="Full screen">⛶</button>
+    </nav>
+    <iframe id="frame" title="Proxied page" allowfullscreen></iframe>
+  </div>
+
+  <dialog id="settings" aria-labelledby="settings-title">
+    <form method="dialog">
+      <h2 id="settings-title">Settings</h2>
+
+      <label for="set-search">Search engine</label>
+      <select id="set-search">
+        <option value="ddg">DuckDuckGo</option>
+        <option value="brave">Brave Search</option>
+        <option value="startpage">Startpage</option>
+        <option value="google">Google</option>
+        <option value="bing">Bing</option>
+      </select>
+
+      <span class="label" id="theme-label">Colour</span>
+      <div id="set-theme" class="swatches" role="radiogroup" aria-labelledby="theme-label"></div>
+
+      <label class="check">
+        <input id="set-ads" type="checkbox">
+        <span>Block ads and trackers</span>
+      </label>
+
+      <button type="submit" class="primary">Done</button>
+    </form>
+  </dialog>
+
+  <script src="uv/uv.bundle.js"></script>
+  <script src="uv/uv.config.js"></script>
+  <script src="baremux/index.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
