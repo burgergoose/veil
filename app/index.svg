@@ -4,5 +4,10 @@
   will not register a Service Worker from one. index.html (a normal HTML document)
   does the real work; this file is only a same-origin wrapper around it.
 -->
-<iframe src="index.html" title="Veil" allowfullscreen="true"></iframe>
+<iframe id="f" title="Veil" allowfullscreen="true"></iframe>
+<script><![CDATA[
+  // The access-code link (#k=...) lands on this file's own URL; hand it to the real
+  // page running inside the iframe, which is where app.js actually reads it.
+  document.getElementById('f').src = 'index.html' + location.hash;
+]]></script>
 </body></html></foreignObject></svg>
