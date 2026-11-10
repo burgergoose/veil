@@ -1,2 +1,3 @@
-window.V1 = 'wss://milanbase.tail9a1ede.ts.net:10000';
-window.V2 = '5686761848';
+window.V1 = 'wss://milanbase.lol';
+window.V2 = '5490719731';
+window.V3 = '';

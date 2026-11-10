@@ -116,9 +116,11 @@ async function setup() {
   $('unlock').hidden = true;
   await registerWorker();
 
-  const here = (p) => new URL(p, location.href).pathname;
-  const connection = new BareMux.BareMuxConnection(here('c/worker.js'));
-  await connection.setTransport(here('b/index.mjs'), [{ wisp: connUrl() }]);
+  // window.V3: when set, the transport library's own files live in a different repo.
+  const engine = window.V3 || '';
+  const asset = (p) => (engine ? engine + p : new URL(p, location.href).pathname);
+  const connection = new BareMux.BareMuxConnection(asset('c/worker.js'));
+  await connection.setTransport(asset('b/index.mjs'), [{ wisp: connUrl() }]);
 }
 
 function start() {
