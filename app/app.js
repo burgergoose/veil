@@ -36,13 +36,13 @@ const statusEl = $('status');
 // ---------- settings (kept in this browser only) ----------
 const settings = { search: 'ddg', theme: 'purple', ads: true };
 try {
-  Object.assign(settings, JSON.parse(localStorage.getItem('veil') || '{}'));
+  Object.assign(settings, JSON.parse(localStorage.getItem('cfg') || '{}'));
 } catch { /* storage unavailable: use defaults */ }
 if (!SEARCH_ENGINES[settings.search]) settings.search = 'ddg';
 if (!THEMES[settings.theme]) settings.theme = 'purple';
 
 function saveSettings() {
-  try { localStorage.setItem('veil', JSON.stringify(settings)); } catch { /* ignore */ }
+  try { localStorage.setItem('cfg', JSON.stringify(settings)); } catch { /* ignore */ }
 }
 
 function applyTheme() {
@@ -52,7 +52,7 @@ function applyTheme() {
   }
 }
 
-// ---------- proxy start-up ----------
+// ---------- start-up ----------
 let ready = null;
 
 function setStatus(text, bad) {
@@ -61,14 +61,14 @@ function setStatus(text, bad) {
 }
 
 function registerWorker() {
-  const script = 'uv/sw.js' + (settings.ads ? '' : '?ads=0');
+  const script = 'a/sw.js' + (settings.ads ? '' : '?ads=0');
   return navigator.serviceWorker.register(script, { scope: __uv$config.prefix });
 }
 
-// Where the tunnel server lives. Empty VEIL_BACKEND = the same server that served this page.
-const BACKEND = (window.VEIL_BACKEND || '').replace(/[/]+$/, '') ||
+// Where the backend lives. Empty = the same server that served this page.
+const BACKEND = (window.V1 || '').replace(/[/]+$/, '') ||
   (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host;
-const REMOTE = !!window.VEIL_BACKEND;
+const REMOTE = !!window.V1;
 
 // On a static host the access code travels in the link (#k=code) and is remembered in this browser.
 let accessKey = '';
@@ -77,19 +77,19 @@ if (REMOTE) {
   try {
     if (m) {
       accessKey = decodeURIComponent(m[1]);
-      localStorage.setItem('veil-key', accessKey);
+      localStorage.setItem('auth', accessKey);
       history.replaceState(null, '', location.pathname + location.search);
     } else {
-      accessKey = localStorage.getItem('veil-key') || '';
+      accessKey = localStorage.getItem('auth') || '';
     }
   } catch { /* storage unavailable */ }
 }
 
-function wispUrl() {
-  return BACKEND + (accessKey ? '/k/' + encodeURIComponent(accessKey) : '') + '/wisp/';
+function connUrl() {
+  return BACKEND + (accessKey ? '/k/' + encodeURIComponent(accessKey) : '') + '/t/';
 }
 
-// Quick check that the tunnel server is up and accepts us.
+// Quick check that the backend is up and accepts us.
 function probe(url) {
   return new Promise((resolve) => {
     let ws;
@@ -106,19 +106,19 @@ async function setup() {
     throw new Error('This browser does not support service workers.');
   }
   if (!window.isSecureContext) {
-    throw new Error('Open this site over https:// (or http://localhost) - the proxy cannot start on plain http.');
+    throw new Error('Open this site over https:// (or http://localhost) - it cannot start on plain http.');
   }
-  if (!(await probe(wispUrl()))) {
+  if (!(await probe(connUrl()))) {
     if (REMOTE) $('unlock').hidden = false;
     throw new Error(REMOTE ? 'Could not connect. The server is offline or the access code is wrong.'
-      : 'Could not reach the tunnel server.');
+      : 'Could not reach the server.');
   }
   $('unlock').hidden = true;
   await registerWorker();
 
   const here = (p) => new URL(p, location.href).pathname;
-  const connection = new BareMux.BareMuxConnection(here('baremux/worker.js'));
-  await connection.setTransport(here('epoxy/index.mjs'), [{ wisp: wispUrl() }]);
+  const connection = new BareMux.BareMuxConnection(here('c/worker.js'));
+  await connection.setTransport(here('b/index.mjs'), [{ wisp: connUrl() }]);
 }
 
 function start() {
@@ -133,7 +133,7 @@ function start() {
 $('unlock').addEventListener('submit', (e) => {
   e.preventDefault();
   accessKey = $('unlock-code').value.trim();
-  try { localStorage.setItem('veil-key', accessKey); } catch { /* ignore */ }
+  try { localStorage.setItem('auth', accessKey); } catch { /* ignore */ }
   $('unlock-code').value = '';
   start();
 });

@@ -5,33 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="noindex, nofollow">
-  <title>Veil</title>
+  <title>Home</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main id="home">
     <button id="settings-btn" class="corner" aria-label="Settings" title="Settings">⚙</button>
     <div class="mark" aria-hidden="true"></div>
-    <h1>Veil</h1>
-    <p class="tag">Private browsing through your own server.</p>
+    <h1>Home</h1>
     <form id="go" autocomplete="off">
       <input id="address" type="text" placeholder="Search or type a web address" autofocus
              spellcheck="false" autocapitalize="off" aria-label="Search or web address">
       <button type="submit">Go</button>
     </form>
-    <p id="status" role="status">Starting…</p>
+    <p id="status" role="status"></p>
     <form id="unlock" autocomplete="off" hidden>
-      <input id="unlock-code" type="password" placeholder="Access code" aria-label="Access code">
-      <button type="submit">Unlock</button>
+      <input id="unlock-code" type="password" placeholder="Code" aria-label="Code">
+      <button type="submit">Go</button>
     </form>
 
     <div id="shortcuts" class="shortcuts" aria-label="Shortcuts"></div>
-
-    <ul class="facts">
-      <li><b>Scrambled addresses</b> Sites you visit never appear in plain text in the address bar.</li>
-      <li><b>Encrypted tunnel</b> HTTPS sites are encrypted inside your browser, all the way to the site.</li>
-      <li><b>No logs, no trackers</b> The server keeps no record, and ad and tracker servers are blocked.</li>
-    </ul>
   </main>
 
   <div id="browser" hidden>
@@ -45,7 +38,7 @@
       </form>
       <button id="full-btn" title="Full screen" aria-label="Full screen">⛶</button>
     </nav>
-    <iframe id="frame" title="Proxied page" allowfullscreen></iframe>
+    <iframe id="frame" title="Page" allowfullscreen></iframe>
   </div>
 
   <dialog id="settings" aria-labelledby="settings-title">
@@ -66,16 +59,16 @@
 
       <label class="check">
         <input id="set-ads" type="checkbox">
-        <span>Block ads and trackers</span>
+        <span>Block ads</span>
       </label>
 
       <button type="submit" class="primary">Done</button>
     </form>
   </dialog>
 
-  <script src="uv/uv.bundle.js"></script>
-  <script src="uv/uv.config.js"></script>
-  <script src="baremux/index.js"></script>
+  <script src="a/uv.bundle.js"></script>
+  <script src="a/uv.config.js"></script>
+  <script src="c/index.js"></script>
   <script src="config.js"></script>
   <script src="app.js"></script>
 </body>

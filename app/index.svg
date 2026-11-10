@@ -1,13 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><foreignObject width="100%" height="100%"><html xmlns="http://www.w3.org/1999/xhtml"><head><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0d0f14}iframe{width:100%;height:100%;border:0;display:block}</style></head><body>
-<!--
-  Why an iframe: a page served as image/svg+xml is an XML document, and browsers
-  will not register a Service Worker from one. index.html (a normal HTML document)
-  does the real work; this file is only a same-origin wrapper around it.
--->
-<iframe id="f" title="Veil" allowfullscreen="true"></iframe>
+<iframe id="f" title="Home" allowfullscreen="true"></iframe>
 <script><![CDATA[
-  // The access-code link (#k=...) lands on this file's own URL; hand it to the real
-  // page running inside the iframe, which is where app.js actually reads it.
   document.getElementById('f').src = 'index.html' + location.hash;
 ]]></script>
 </body></html></foreignObject></svg>

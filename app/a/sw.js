@@ -1,12 +1,12 @@
 /*global UVServiceWorker,__uv$config*/
-// Service worker: runs Ultraviolet and (optionally) drops requests to ad and tracker servers.
+// Runs page rewriting and (optionally) drops requests to ad and tracker servers.
 importScripts('uv.bundle.js');
 importScripts('uv.config.js');
 importScripts(__uv$config.sw || 'uv.sw.js');
 
 const uv = new UVServiceWorker();
 
-// Registered as /uv/sw.js?ads=0 to turn blocking off.
+// Registered as /a/sw.js?ads=0 to turn blocking off.
 const BLOCK_ADS = new URL(self.location.href).searchParams.get('ads') !== '0';
 
 // Matches the domain itself and every subdomain.
